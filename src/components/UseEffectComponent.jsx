@@ -10,6 +10,7 @@ import { useEffect, useState } from "react";
 
 const UseEffectComponent = () => {
   const [isVisible, setIsVisible] = useState(true);
+  const [name, setName] = useState("Michael");
 
   // a perfect spot for a react hook :)
   useEffect(
@@ -28,7 +29,7 @@ const UseEffectComponent = () => {
   // be executed once, and we're NOT listening on ANYTHING for re-invoking it)
 
   useEffect(() => {
-    console.log("Hello!");
+    console.log("generic componentDidUpdate!");
     // setIsVisible(isVisible === true ? false : true);
     // beware of setting a state variable inside a useEffect with no array of deps
     // it will break your app, it's just like componentDidUpdate with no condition inside
@@ -37,12 +38,20 @@ const UseEffectComponent = () => {
   // re-invoking the function --> so the function will be invoked at EVERY UPDATE
   // --> this is just like componentDidUpdate
 
+  useEffect(() => {
+    console.log("componentDidUpdate just for name");
+  }, [name]);
+
   return (
     <div>
       <h1>USE EFFECT NOW!</h1>
       {isVisible && <div>HIDDEN CONTENT</div>}
       <button onClick={() => setIsVisible(isVisible === true ? false : true)}>
-        CLICK ME
+        CLICK ME FOR HIDING THE CONTENT
+      </button>
+      <p>{name}</p>
+      <button onClick={() => setName(name === "Yoji" ? "Michael" : "Yoji")}>
+        CHANGE NAME
       </button>
     </div>
   );
